@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sqflite/pages/categories_screen.dart';
 import 'package:flutter_sqflite/pages/home_screen.dart';
 
-class DrawerNavigator extends StatelessWidget {
+class DrawerNavigator extends StatefulWidget {
   const DrawerNavigator({Key? key}) : super(key: key);
 
+  @override
+  State<DrawerNavigator> createState() => _DrawerNavigatorState();
+}
+
+class _DrawerNavigatorState extends State<DrawerNavigator> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(children: [
         const UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://lh3.googleusercontent.com/a-/AOh14Gj6PZBNfnTwfQ4b4fbXZx5WPC3eV2pUJxhyy409yA=s80'),
-            ),
+                // backgroundImage: NetworkImage(
+                //     'https://lh3.googleusercontent.com/a-/AOh14Gj6PZBNfnTwfQ4b4fbXZx5WPC3eV2pUJxhyy409yA=s80'),
+                ),
             accountName: Text('Dr. Tarek'),
             accountEmail: Text('tirahman105@gmail.com')),
         ListTile(

@@ -16,7 +16,42 @@ class CategoriasScreen extends StatelessWidget {
       ),
       body: const Center(child: Text('demo')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    actions: [
+                      TextButton(
+                          onPressed: ()=>Navigator.pop(context,'Cencle'),
+                          child: const Text('Cencle',
+                              style: TextStyle(color: Colors.white)),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.red)),
+                      TextButton(
+                          onPressed: ()=>Navigator.pop(context,'Ok'),
+                          child: const Text('Add',
+                              style: TextStyle(color: Colors.white)),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.blue))
+                    ],
+                    title: const Text('Categories Form'),
+                    content: SingleChildScrollView(
+                        child: Column(
+                      children: const [
+                        TextField(
+                          decoration: InputDecoration(
+                              hintText: 'Write Category',
+                              labelText: 'Category'),
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                              hintText: 'Write Description',
+                              labelText: 'Description'),
+                        ),
+                      ],
+                    )),
+                  ));
+        },
         child: const Icon(Icons.add),
       ),
     );
