@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sqflite/models/categories_service.dart';
+import 'package:flutter_sqflite/models/category.dart';
 import 'package:flutter_sqflite/pages/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -12,6 +14,8 @@ class CategoriasScreen extends StatefulWidget {
 class _CategoriasScreenState extends State<CategoriasScreen> {
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final _category = Category();
+  final _categoryService = CatwgoriesService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +41,9 @@ class _CategoriasScreenState extends State<CategoriasScreen> {
                               backgroundColor: Colors.red)),
                       TextButton(
                           onPressed: () {
-                            print('A:${_categoryController.text}');
-                            print('B:${_descriptionController.text}');
+                            _category.name = _categoryController.text;
+                            _category.description = _descriptionController.text;
+                            _categoryService.savaCategory(_category);
                             Fluttertoast.showToast(
                                 msg: ' Add Successfully',
                                 textColor: Colors.green,
