@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sqflite/pages/home_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class CategoriasScreen extends StatelessWidget {
+class CategoriasScreen extends StatefulWidget {
   const CategoriasScreen({Key? key}) : super(key: key);
 
+  @override
+  State<CategoriasScreen> createState() => _CategoriasScreenState();
+}
+
+class _CategoriasScreenState extends State<CategoriasScreen> {
+  final TextEditingController _categoryController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +30,21 @@ class CategoriasScreen extends StatelessWidget {
               builder: (context) => AlertDialog(
                     actions: [
                       TextButton(
-                          onPressed: ()=>Navigator.pop(context,'Cencle'),
+                          onPressed: () => Navigator.pop(context, 'Cencle'),
                           child: const Text('Cencle',
                               style: TextStyle(color: Colors.white)),
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.red)),
                       TextButton(
-                          onPressed: ()=>Navigator.pop(context,'Ok'),
+                          onPressed: () {
+                            print('A:${_categoryController.text}');
+                            print('B:${_descriptionController.text}');
+                            Fluttertoast.showToast(
+                                msg: ' Add Successfully',
+                                textColor: Colors.green,
+                                backgroundColor: Colors.grey[400]);
+                            Navigator.pop(context, 'Ok');
+                          },
                           child: const Text('Add',
                               style: TextStyle(color: Colors.white)),
                           style: TextButton.styleFrom(
@@ -37,14 +53,16 @@ class CategoriasScreen extends StatelessWidget {
                     title: const Text('Categories Form'),
                     content: SingleChildScrollView(
                         child: Column(
-                      children: const [
+                      children: [
                         TextField(
-                          decoration: InputDecoration(
+                          controller: _categoryController,
+                          decoration: const InputDecoration(
                               hintText: 'Write Category',
                               labelText: 'Category'),
                         ),
                         TextField(
-                          decoration: InputDecoration(
+                          controller: _descriptionController,
+                          decoration: const InputDecoration(
                               hintText: 'Write Description',
                               labelText: 'Description'),
                         ),
