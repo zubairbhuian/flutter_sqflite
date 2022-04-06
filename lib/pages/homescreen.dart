@@ -21,14 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
             TextButton(
                 onPressed: () async {
                   var response = await sqlDb
-                      .insertData("INSERT INTO 'noteS'VALUES('note one')");
+                      .insertData("INSERT INTO 'notes' ('note') VALUES('note one')");
                   print(response);
                 },
                 child: const Text('Create')),
             TextButton(
                 onPressed: () async {
                   List<Map> response =
-                      await sqlDb.readData("SECCT *FROM 'notes'");
+                      await sqlDb.readData("SELECT *FROM 'notes'");
                   print(response);
                 },
                 child: const Text('Upgrate')),

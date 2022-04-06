@@ -18,7 +18,7 @@ class SqlDb {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'weal.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
+        onCreate: _onCreate, version: 2, onUpgrade: _onUpgrade);
     return mydb;
   }
 
