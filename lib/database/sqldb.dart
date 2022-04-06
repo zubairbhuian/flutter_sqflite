@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SqlDb {
   static Database? _db;
@@ -8,7 +8,7 @@ class SqlDb {
     if (_db == null) {
       _db = await intialDb();
       return _db;
-    }else{
+    } else {
       return _db;
     }
   }
@@ -17,7 +17,7 @@ class SqlDb {
     // get a location using getdatabsepath
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'weal.db');
-    Database mydb = await openDatabase(path, onCreate: _onCreate);
+    Database mydb = await openDatabase(path, onCreate: _onCreate,version: 1,onUpgrade: _onUpgrade);
     return mydb;
   }
 
@@ -29,5 +29,36 @@ class SqlDb {
     )
     ''');
     print("Create");
+  }
+  _onUpgrade(Database db,int oldversion,int newversion)async{
+
+  }
+
+  // SELECT
+  // DELETE
+  // UPDATE
+  // INSERT
+  readData(String sql) async {
+    Database? mydb = await db;
+    List<Map> respose = await mydb!.rawQuery(sql);
+    return respose;
+  }
+
+  insertData(String sql) async {
+    Database? mydb = await db;
+    int respose = await mydb!.rawInsert(sql);
+    return respose;
+  }
+
+  updateData(String sql) async {
+    Database? mydb = await db;
+    int respose = await mydb!.rawUpdate(sql);
+    return respose;
+  }
+
+  deleteData(String sql) async {
+    Database? mydb = await db;
+    int respose = await mydb!.rawDelete(sql);
+    return respose;
   }
 }
