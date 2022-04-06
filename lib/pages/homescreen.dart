@@ -18,20 +18,32 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: Column(
           children: [
-            TextButton(
+            ElevatedButton(
                 onPressed: () async {
-                  var response = await sqlDb
-                      .insertData("INSERT INTO 'notes' ('note') VALUES('note one')");
+                  var response = await sqlDb.insertData(
+                      "INSERT INTO 'notes' ('note') VALUES('note one')");
                   print(response);
                 },
                 child: const Text('Create')),
-            TextButton(
+            ElevatedButton(
                 onPressed: () async {
                   List<Map> response =
                       await sqlDb.readData("SELECT *FROM 'notes'");
-                  print(response);
+                  print("$response");
                 },
-                child: const Text('Upgrate')),
+                child: const Text('ReadData')),
+            ElevatedButton(onPressed: ()async {
+              int response = await sqlDb
+                      .updateData("UPDATE 'notes' SET 'note'= 'note sex' WHERE id =6");
+                  print("$response");
+            }, child: const Text('Update')),
+            ElevatedButton(
+                onPressed: () async {
+                  int response = await sqlDb
+                      .deleteData("DELETE FROM 'notes' WHERE id =7 ");
+                  print("$response");
+                },
+                child: const Text('Delete'))
           ],
         ),
       ),
