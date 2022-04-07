@@ -23,6 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: const Text('Home Page')),
       body: ListView(
         children: [
+          ElevatedButton(
+              onPressed: () async {
+                await sqlDb.deleteDatebase();
+              },
+              child: const Text('Delete Database')),
           FutureBuilder(
               future: readData(),
               builder:
@@ -47,8 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, CupertinoPageRoute(builder: (_) => const AddData()));
+          Navigator.of(context).pushNamed("adddata");
         },
         child: const Icon(Icons.add),
       ),

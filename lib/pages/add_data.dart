@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sqflite/database/sqldb.dart';
+import 'package:flutter_sqflite/pages/homescreen.dart';
 
 class AddData extends StatefulWidget {
   const AddData({Key? key}) : super(key: key);
@@ -46,8 +47,11 @@ class _AddDataState extends State<AddData> {
                     INSERT INTO notes (`note` , `title` ,`color`)
                     VALUES ("${_note.text}","${_title.text}","${_color.text}")
                    ''');
-                    print("response===================");
-                    print(response);
+                    if (response > 0) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (_) => const HomeScreen()),
+                          (route) => false);
+                    }
                   },
                   child: const Text('Add Note'),
                 ),

@@ -18,7 +18,7 @@ class SqlDb {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'weal.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, version: 4, onUpgrade: _onUpgrade);
+        onCreate: _onCreate, version:4, onUpgrade: _onUpgrade);
     return mydb;
   }
 
@@ -27,7 +27,7 @@ class SqlDb {
     CREATE TABLE "notes"(
       "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       "title" TEXT NOT NULL,
-      "note" TEXT NOT NULL
+      "note" TEXT NOT NULL,
       "color" TEXT NOT NULL
     )
     ''');
@@ -36,7 +36,7 @@ class SqlDb {
 
   _onUpgrade(Database db, int oldversion, int newversion) async {
     print('Upgrade Data===========================');
-    await db.execute("ALTER TABLE notes ADD COLUM color TEXT");
+    await db.execute("ALTER TABLE notes ADD COLUMN color TEXT");
   }
 
   // SELECT
