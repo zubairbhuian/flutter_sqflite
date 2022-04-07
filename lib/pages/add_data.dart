@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_sqflite/database/sqldb.dart';
 
 class AddData extends StatefulWidget {
   const AddData({Key? key}) : super(key: key);
@@ -8,6 +10,7 @@ class AddData extends StatefulWidget {
 }
 
 class _AddDataState extends State<AddData> {
+  SqlDb sqlDb = SqlDb();
   GlobalKey<FormState> formState = GlobalKey();
   final TextEditingController _note = TextEditingController();
   final TextEditingController _title = TextEditingController();
@@ -16,7 +19,7 @@ class _AddDataState extends State<AddData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Add Notes')),
-      body: ListView(padding: const EdgeInsets.all(16), children: [
+      body: ListView(padding: EdgeInsets.all(16.h), children: [
         Form(
             key: formState,
             child: Column(children: [
@@ -32,13 +35,20 @@ class _AddDataState extends State<AddData> {
                 decoration: const InputDecoration(hintText: 'color'),
                 controller: _color,
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               ),
               SizedBox(
-                width: 200,
+                width: 160.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    int response = await sqlDb.insertData('''
+                    INSERT INTO notes (`note` , `title` , `color`)
+                    VALUES ("${_note.text}","${_title.text}","${_color.text}")
+                   ''');
+                    print("response===================");
+                    print(response);
+                  },
                   child: const Text('Add Note'),
                 ),
               )
