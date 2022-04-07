@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sqflite/database/sqldb.dart';
-import 'package:flutter_sqflite/pages/add_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,11 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: const Text('Home Page')),
       body: ListView(
         children: [
-          ElevatedButton(
-              onPressed: () async {
-                await sqlDb.deleteDatebase();
-              },
-              child: const Text('Delete Database')),
+          // ElevatedButton(
+          //     onPressed: () async {
+          //       await sqlDb.deleteDatebase();
+          //     },
+          //     child: const Text('Delete Database')),
           FutureBuilder(
               future: readData(),
               builder:
@@ -40,7 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: ((context, index) {
                         return Card(
                           child: ListTile(
-                              title: Text("${snapshot.data![index]['note']}")),
+                            title: Text("${snapshot.data![index]['note']}"),
+                            subtitle: Text("${snapshot.data![index]['title']}"),
+                            trailing: Text("${snapshot.data![index]['color']}"),
+                          ),
                         );
                       }));
                 }
