@@ -22,14 +22,36 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Home Page')),
       body: ListView(
-        children: const [],
+        children: [
+          FutureBuilder(
+              future: readData(),
+              builder:
+                  ((BuildContext context, AsyncSnapshot<List<Map>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: ((context, index) {
+                        return Card(
+                          child: ListTile(
+                              title: Text("${snapshot.data![index]['note']}")),
+                        );
+                      }));
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context, CupertinoPageRoute(builder: (_) => const AddData()));
-          },
-          child: const Icon(Icons.add)),
+        onPressed: () {
+          Navigator.push(
+              context, CupertinoPageRoute(builder: (_) => const AddData()));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

@@ -43,7 +43,7 @@ class _AddDataState extends State<AddData> {
                 child: ElevatedButton(
                   onPressed: () async {
                     int response = await sqlDb.insertData('''
-                    INSERT INTO notes (`note` , `title` , `color`)
+                    INSERT INTO notes (`note` , `title` ,`color`)
                     VALUES ("${_note.text}","${_title.text}","${_color.text}")
                    ''');
                     print("response===================");
