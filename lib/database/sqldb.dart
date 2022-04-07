@@ -26,14 +26,16 @@ class SqlDb {
     await db.execute('''
     CREATE TABLE "notes"(
       "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      "title" TEXT NOT NULL,
       "note" TEXT NOT NULL
     )
     ''');
-    print("Create====================");
+    print("Create Database====================");
   }
 
   _onUpgrade(Database db, int oldversion, int newversion) async {
-    print('Upgrade===========================');
+    print('Upgrade Data===========================');
+    await db.execute("ALTER TABLE notes ADD COLUM color TEXT");
   }
 
   // SELECT
@@ -62,5 +64,11 @@ class SqlDb {
     Database? mydb = await db;
     int respose = await mydb!.rawDelete(sql);
     return respose;
+  }
+
+  deleteDatebase() async {
+    String databasepath = await getDatabasesPath();
+    String path = join(databasepath, 'weal.db');
+    await deleteDatabase(path);
   }
 }
