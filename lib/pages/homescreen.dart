@@ -40,7 +40,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ListTile(
                             title: Text("${snapshot.data![index]['note']}"),
                             subtitle: Text("${snapshot.data![index]['title']}"),
-                            trailing: Text("${snapshot.data![index]['color']}"),
+                            trailing: IconButton(
+                              onPressed: () async {
+                                int response = await sqlDb.deleteData(
+                                    "DELETE FROM notes WHERE id = ${snapshot.data![index]['id']}");
+                                if (response > 0) {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (_) => const HomeScreen()),
+                                      (route) => false);
+                                }
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
                           ),
                         );
                       }));

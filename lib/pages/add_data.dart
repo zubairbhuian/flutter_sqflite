@@ -30,7 +30,7 @@ class _AddDataState extends State<AddData> {
               ),
               TextFormField(
                 controller: _title,
-                decoration: const InputDecoration(hintText: 'note'),
+                decoration: const InputDecoration(hintText: 'title'),
               ),
               TextFormField(
                 decoration: const InputDecoration(hintText: 'color'),
