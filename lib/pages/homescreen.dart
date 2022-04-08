@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sqflite/database/sqldb.dart';
+import 'package:flutter_sqflite/pages/edite_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,24 +48,45 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: ((context, index) {
                       return Card(
                         child: ListTile(
-                          title: Text("${notes[index]['note']}"),
-                          subtitle: Text("${notes[index]['title']}"),
-                          trailing: IconButton(
-                            onPressed: () async {
-                              int response = await sqlDb.deleteData(
-                                  "DELETE FROM notes WHERE id = ${notes[index]['id']}");
-                              if (response > 0) {
-                                notes.removeWhere((element) =>
-                                    element['id'] == notes[index]['id']);
-                                setState(() {});
-                              }
-                            },
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
+                            title: Text("${notes[index]['note']}"),
+                            subtitle: Text("${notes[index]['title']}"),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () async {
+                                    int response = await sqlDb.deleteData(
+                                        "DELETE FROM notes WHERE id = ${notes[index]['id']}");
+                                    if (response > 0) {
+                                      notes.removeWhere((element) =>
+                                          element['id'] == notes[index]['id']);
+                                      setState(() {});
+                                    }
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (_) => EditeData(
+                                                  color: notes[index]['color'],
+                                                  note: notes[index]['note'],
+                                                  title: notes[index]['title'],
+                                                  id: notes[index]['id'],
+                                                )));
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.blue,
+                                  ),
+                                )
+                              ],
+                            )),
                       );
                     }))
               ],
